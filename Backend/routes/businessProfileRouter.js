@@ -1,5 +1,6 @@
 import express from 'express'
 import multer from 'multer'
+import path from "path";
 
 import { clerkMiddleware } from '@clerk/express'
 import { createBusinessProfile, getMyBusinessProfile, updateBusinessProfile } from '../controllers/businessProfileController.js';
@@ -11,11 +12,11 @@ businessProfileRouter.use(clerkMiddleware());
 //multer setup
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, Path2D.join(process.cwd(), 'uploads'));
+    cb(null, path.join(process.cwd(), 'uploads'));
   },
   filename: (req, file, cb) => {
     const unique = Date.now() + '-' + Math.round(Math.random() * 1e9)
-    const ext = Path2D.extname(file.originalname);
+    const ext = path.extname(file.originalname);
     cb(null, `business-${unique}${ext}`);
   }
 })

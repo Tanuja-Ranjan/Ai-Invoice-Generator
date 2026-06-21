@@ -125,7 +125,7 @@ export async function createInvoice(req, res) {
       _id: new mongoose.Types.ObjectId(),
       owner: userId, // associate invoice with Clerk userId
       invoiceNumber,
-      issueDate: body.issueDate || new Date().toISOString().slice(0, 10),
+      issuedDate: body.issuedDate || new Date().toISOString().slice(0, 10),
       dueDate: body.dueDate || "",
       fromBusinessName: body.fromBusinessName || "",
       fromEmail: body.fromEmail || "",
@@ -366,7 +366,7 @@ export async function updateInvoice(req, res) {
 
     const update = {
       invoiceNumber: body.invoiceNumber,
-      issueDate: body.issueDate,
+      issuedDate: body.issuedDate,
       dueDate: body.dueDate,
       fromBusinessName: body.fromBusinessName,
       fromEmail: body.fromEmail,
@@ -403,7 +403,7 @@ export async function updateInvoice(req, res) {
     );
 
     const updated = await Invoice.findOneAndUpdate(
-      { _id: exisitng._id },
+      { _id: existing._id },
       { $set: update },
       { new: true, runValidators: true },
     );
